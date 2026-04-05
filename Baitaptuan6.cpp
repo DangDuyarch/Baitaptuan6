@@ -52,6 +52,14 @@ void InsertSize(Node*& head, File newFileData) {
     p->link = Newnode;
 }
 
+// Hàm sao chép dữ liệu từ List 1 sang List 2 và sắp xếp theo Size
+void CopyListandSort(Node* headSource, Node*& headDest) {
+    Node* q = headSource; 
+    while (q != nullptr) {
+        InsertSize(headDest, q->data); 
+        q = q->link;
+    }
+}
 
 //Hàm tính tổng dung lương(kích thước) các file
 double Sumsize(Node* head) {
@@ -71,6 +79,7 @@ void printList(Node* head) {
         p = p->link;
     }
 }
+
 
 
 
@@ -95,14 +104,7 @@ int main() {
     cout << "Tong dung luong ban dau: " << Sumsize(Document) << "GB" ;
     if(Sumsize(Document)>32.0) cout << "( > 32Gb) \n" << endl;
     if(Sumsize(Document)<32.0) cout << "( < 32Gb) \n" << endl;
-
-
-// Sao chép Document sang Document 2 theo size
-    Node* p = Document;
-    while (p != nullptr) {
-        InsertSize(Document2, p->data);// Xếp các file sao chép sang theo thứ tự size nhỏ đến lớn
-        p = p->link;
-    }
+    CopyListandSort(Document, Document2);
 
     cout << "Xoa cac file nho nhat de dam bao dung luong <32Gb " << endl;
     while (Document2 != nullptr && Sumsize(Document2) > 32.0) {  // Duyệt Document2 để xóa đảm bảo sumsize<32gb
