@@ -107,18 +107,19 @@ int main() {
     CopyListandSort(Document, Document2);
 
     cout << "Xoa cac file nho nhat de dam bao dung luong <32Gb " << endl;
-    while (Document2 != nullptr && Sumsize(Document2) > 32.0) {  // Duyệt Document2 để xóa đảm bảo sumsize<32gb
-        Node* temp = Document2; 
-        cout << " Xoa file:  " << temp->data.name << " (" << temp->data.size << "GB)" << endl;
-        Document2 = Document2->link;     // xóa các file 
-        delete temp;                 
-    }
+     double sum = Sumsize(Document2);
 
-    // In ra danh sach con lai
+    while (Document2 != nullptr && sum > 32.0) {    // Duyệt Document2 để xóa đảm bảo sumsize<32gb
+        Node* temp = Document2;
+        cout << " Xoa file:  " << temp->data.name << " (" << temp->data.size << "GB)" << endl;
+        sum -= temp->data.size;   // xóa các file 
+        Document2 = Document2->link;
+        delete temp;   }
+
+  // In ra danh sach con lai
     cout << "\n Danh sach cac file con lai sau khi xoa (Dung luong <32Gb): " << endl;
      printList(Document2);
     cout << "Tong dung luong con lai: " << Sumsize(Document2) << " GB" << endl;
     
-
     return 0;
 }
